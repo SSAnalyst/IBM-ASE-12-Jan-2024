@@ -1,0 +1,56 @@
+import java.util.*;
+import java.io.*;
+
+class Result {
+    public static void decoSeq(String str) {
+        HashMap<String, Character> hm = new HashMap<>();
+
+        hm.put("001", 'C');
+        hm.put("010", 'G');
+        hm.put("011", 'A');
+        hm.put("101", 'T');
+        hm.put("110", 'U');
+
+        boolean isDna = false;
+        String firstThree = str.substring(0, 3);
+        char ch = ' ';
+
+        if (firstThree.equals("000")) {
+            isDna = true;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 3; i < str.length(); i += 3) {
+            String seq = str.substring(i, i + 3);
+            if (hm.containsKey(seq)) {
+                ch = hm.get(seq);
+            }
+
+            if (isDna) {
+                if (ch == 'U') {
+                    sb.append('T');
+                } else {
+                    sb.append(ch);
+                }
+            } else {
+                if (ch == 'T') {
+                    sb.append('U');
+                } else {
+                    sb.append(ch);
+                }
+            }
+        }
+
+        System.out.println(sb.toString());
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        System.out.println("Enter the binary bits in multiple of 3");
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        Result.decoSeq(str);
+    }
+}
